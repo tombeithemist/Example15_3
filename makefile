@@ -28,7 +28,7 @@ clean:
 # $@ expands to the rule's target.
 # $^ expands to the rule's dependencies
 $(LINK_TARGET) : $(OBJS)
-	g++ -g -o $@ $^
+	g++ -g -static-libgcc -static-libstdc++ -o $@ $^
 
 # Here is a Pattern Rule, often used for compile-line.
 # It says how to create a file with a .o suffix, given a file with a .cpp suffix.

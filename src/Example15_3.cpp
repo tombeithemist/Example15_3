@@ -15,10 +15,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+
+#include <stdio.h>
+#include <string.h>
 #include <fstream>
 #include <iostream>
 #include <math.h>
-#include <string>
 
 #include "SparseMatrix.h"
 #include "Boundary.h"

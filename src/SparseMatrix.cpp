@@ -5,10 +5,11 @@
  *      Author: david
  */
 
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 #include <fstream>
 #include <iostream>
-#include <math.h>
-#include <string>
 
 #include "SparseMatrix.h"
 
