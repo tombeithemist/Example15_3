@@ -39,7 +39,7 @@ const double psi = 0.20;
 const int N_t = static_cast<int>((t_max - t_min) / Delta_t + 1);
 
 // Function declarations
-void read(char* filename, double**& Points, int**& Faces, int**& Elements,
+int read(char* filename, double**& Points, int**& Faces, int**& Elements,
     Boundary*& Boundaries, int& N_p, int& N_f, int& N_e, int& N_b);
 void write(fstream& file, double* phi, int N_p);
 void assemble(SparseMatrix& M, SparseMatrix& K, double* s, double* phi,
@@ -64,7 +64,12 @@ int main(int argc, char** argv) {
     cerr << "No grid file specified" << endl;
     return 1;
   } else {
-    read(argv[1], Points, Faces, Elements, Boundaries, N_p, N_f, N_e, N_b);
+    int rc = read(argv[1], Points, Faces, Elements, Boundaries, N_p, N_f, N_e, N_b);
+    if(rc != 0) {
+      cerr << "Exiting as a result of error. rc: " << rc << endl;
+      return(rc);
+    }
+
   }
   // Allocate arrays
   double* phi = new double[N_p];
@@ -137,7 +142,7 @@ int main(int argc, char** argv) {
   return 0;
 }
 
-void read(char* filename, double**& Points, int**& Faces, int**& Elements,
+int read(char* filename, double**& Points, int**& Faces, int**& Elements,
     Boundary*& Boundaries, int& N_p, int& N_f, int& N_e, int& N_b) {
   fstream file;
   string temp;
@@ -146,8 +151,8 @@ void read(char* filename, double**& Points, int**& Faces, int**& Elements,
 
   file.open(filename);
   if (!file.is_open()) {
-    cerr << "Error opening file" << endl;
-    return;
+    cerr << "Error opening file: " << filename << endl;
+    return(1);
   }
 
   file >> temp >> N_p;
@@ -201,7 +206,7 @@ void read(char* filename, double**& Points, int**& Faces, int**& Elements,
 
   cout << "Done.\n" << flush;
 
-  return;
+  return(0);
 }
 
 void write(fstream& file, double* phi, int N_p) {
