@@ -1,19 +1,18 @@
 # NB!!! Must be tab characters indeneting the commands, not spaces.
 
 # Under Windows rm does not work when invoked by make, but does work if invoked by nmake.
-DEL = rm
-SRC = src
-INCLUDE = src
-OUT = Debug
-TARGET = Debug
+DEL_CMD = rm
+SRC_DIR = src
+INCLUDE_DIR = src
+OUT_DIR = Debug
+TARGET_DIR = Debug
 
-LINK_TARGET = $(TARGET)/Example15_3.exe
+LINK_TARGET = $(TARGET_DIR)/Example15_3.exe
 
 # Here is a Make Macro that uses the backslash to extend to multiple lines.
-OBJS =  \
- $(OUT)/Example15_3.o \
- $(OUT)/SparseMatrix.o \
- $(OUT)/Boundary.o 
+OBJS =  $(OUT_DIR)/Boundary.o \
+        $(OUT_DIR)/Example15_3.o \
+        $(OUT_DIR)/SparseMatrix.o
   
 # The rule for "all" is used to incrementally build your system.
 # It does this by expressing a dependency on the results of that system,
@@ -23,7 +22,7 @@ all : $(LINK_TARGET)
 
 # See note above as this only runs under nmake	
 clean:
-	$(DEL) $(OUT)/Example15_3.o $(TARGET)/Example15_3.exe
+	$(DEL_CMD) $(OBJS) $(LINK_TARGET)
 
 # Here is a Rule that uses some built-in Make Macros in its command:
 # $@ expands to the rule's target.
@@ -36,7 +35,7 @@ $(LINK_TARGET) : $(OBJS)
 # The rule's command uses some built-in Make Macros:
 # $@ for the pattern-matched target
 # $< for the pattern-matched dependency
-$(OUT)/%.o : $(SRC)/%.cpp
+$(OUT_DIR)/%.o : $(SRC_DIR)/%.cpp
 	g++ -g -o $@ -c $<
 
 # These are Dependency Rules, which are rules without any command.
@@ -45,5 +44,6 @@ $(OUT)/%.o : $(SRC)/%.cpp
 # The commands for making an out-of-date target up-to-date may be found elsewhere
 # (in this case, by the Pattern Rule above).
 # Dependency Rules are often used to capture header file dependencies.
-$(OUT)/Example15_3.o : $(SRC)/Example15_3.cpp $(INCLUDE)/SparseMatrix.h
+# This does not seem to work as expected??
+# $(OUT_DIR)/Example15_3.o : $(INCLUDE_DIR)/SparseMatrix.h $(INCLUDE_DIR)/Boundary.h
 			

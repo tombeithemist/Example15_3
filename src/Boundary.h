@@ -2,7 +2,7 @@
  * Boundary.h
  *
  *  Created on: 22 Oct 2014
- *      Author: david
+ *      Author: David
  */
 
 #ifndef BOUNDARY_H_

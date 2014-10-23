@@ -5,16 +5,12 @@
  *      Author: david
  */
 
-#include <string>
 
 #include "Boundary.h"
 
-using namespace std;
+Boundary::Boundary() {
 
-class Boundary {
-public:
-  Boundary() {
+}
 
-  }
-};
-
+Boundary::~Boundary() {
+}
